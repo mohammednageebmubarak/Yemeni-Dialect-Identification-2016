@@ -11,18 +11,48 @@
 
 [النتائج كاملة (CSV)](original-2016/results/reported-results.csv) · [أعداد التسجيلات](original-2016/dataset/recording-counts.csv) · [مخطط التصنيف الأصلي](original-2016/screenshots/p05-architecture.png) · [صور واجهات التطبيق](original-2016/screenshots/)
 
-## الباحثون والمشرف
+## فريق البحث الأصلي — 2016
 
-تَرِد الأسماء بالتهجئة الواردة في صفحة عنوان الرسالة.
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <a href="https://github.com/alibaowain"><img src="https://github.com/alibaowain.png?size=160" width="100" height="100" alt="Ali A. Baowain — GitHub avatar"></a><br>
+      <strong>Ali A. Baowain</strong><br>
+      <a href="https://github.com/alibaowain">@alibaowain</a><br>
+      <sub>باحث أصلي</sub>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/mohammednageebmubarak"><img src="https://github.com/mohammednageebmubarak.png?size=160" width="100" height="100" alt="Mohammed N. Mubark — GitHub avatar"></a><br>
+      <strong>Mohammed N. Mubark</strong><br>
+      <a href="https://github.com/mohammednageebmubarak">@mohammednageebmubarak</a><br>
+      <sub>باحث أصلي</sub>
+    </td>
+    <td align="center" width="33%">
+      <strong>Mohammed N. Obaid</strong><br>
+      <sub>باحث أصلي</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <strong>Ahmed A. Sallam</strong><br>
+      <sub>باحث أصلي</sub>
+    </td>
+    <td align="center" width="33%">
+      <strong>Ahmed R. Abdo</strong><br>
+      <sub>باحث أصلي</sub>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/alHaitham2020"><img src="https://github.com/alHaitham2020.png?size=160" width="100" height="100" alt="Haytham Y. Al-Areaqi — GitHub avatar"></a><br>
+      <strong>Haytham Y. Al-Areaqi</strong><br>
+      <a href="https://github.com/alHaitham2020">@alHaitham2020</a><br>
+      <sub>باحث أصلي</sub>
+    </td>
+  </tr>
+</table>
 
-- Ali A. Baowain
-- Mohammed N. Mubark ([@mohammednageebmubarak](https://github.com/mohammednageebmubarak))
-- Mohammed N. Obaid
-- Ahmed A. Sallam
-- Ahmed R. Abdo
-- Haytham Y. Al-Areaqi ([@alHaitham2020](https://github.com/alHaitham2020))
+**المشرف الأكاديمي:** Dr. Ibrahim Nani. تَرِد أسماء الباحثين الستة بترتيب صفحة عنوان الرسالة الأصلية.
 
-المشرف Dr. Ibrahim Nani. [سجل المؤلفين](original-2016/AUTHORS.md)
+[سجل المؤلفين](original-2016/AUTHORS.md) · [بيانات الاستشهاد](original-2016/CITATION.cff)
 
 ## مواد المستودع
 
