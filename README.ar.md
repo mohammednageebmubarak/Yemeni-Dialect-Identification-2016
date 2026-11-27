@@ -16,11 +16,11 @@
 تَرِد الأسماء بالتهجئة الواردة في صفحة عنوان الرسالة.
 
 - Ali A. Baowain
-- Mohammed N. Mubark
+- Mohammed N. Mubark ([@mohammednageebmubarak](https://github.com/mohammednageebmubarak))
 - Mohammed N. Obaid
 - Ahmed A. Sallam
 - Ahmed R. Abdo
-- Haytham Y. Al-Areaqi
+- Haytham Y. Al-Areaqi ([@alHaitham2020](https://github.com/alHaitham2020))
 
 المشرف Dr. Ibrahim Nani. [سجل المؤلفين](original-2016/AUTHORS.md)
 
