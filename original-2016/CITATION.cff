@@ -2,6 +2,8 @@ cff-version: 1.2.0
 message: "If you build on this research, please cite the original 2016 thesis and credit all six authors listed below."
 title: "Spoken Arabic Dialect Identification: The Case of Yemeni Dialects"
 type: generic
+doi: "10.5281/zenodo.24600870"
+url: "https://doi.org/10.5281/zenodo.24600870"
 authors:
   - family-names: Baowain
     given-names: Ali A.
