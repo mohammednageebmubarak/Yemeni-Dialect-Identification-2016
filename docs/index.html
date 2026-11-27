@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the 2016 University of Aden research archive on spoken Yemeni Arabic dialect identification.">
+  <title>Yemeni Dialect Identification · 2016 Research Archive</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="results.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="wrap">
+      <nav aria-label="Main navigation"><a href="#method">Method</a><a href="#results">Results</a><a href="#screens">Screenshots</a><a href="#archive">Archive</a><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/README.ar.md" lang="ar">العربية</a></nav>
+      <p class="eyebrow">University of Aden · February 2016</p>
+      <h1>Spoken Arabic Dialect Identification</h1>
+      <p class="subtitle">The Case of Yemeni Dialects</p>
+      <p><a class="button" href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/docs/Full-Thesis-2016.pdf">Read the thesis (PDF)</a></p>
+    </div>
+  </header>
+  <main id="main" class="wrap" tabindex="-1">
+    <section id="method" aria-labelledby="method-title">
+      <h2 id="method-title">From speech to dialect</h2>
+      <p>The graduation project compared how speakers of Adeni, Dalai, Hadhrami, Lahji, and Sanaani pronounced <span lang="ar" dir="rtl">السلام عليكم</span>. The study accepted 80 of 125 recordings and compared mel-frequency cepstral coefficients (MFCCs) with Haar and Daubechies 4 (DB4) wavelet features.</p>
+      <dl class="process">
+        <div><dt>Training</dt><dd>Preprocess labeled speech, extract acoustic features, then train a supervised classifier.</dd></div>
+        <div><dt>Identification</dt><dd>Extract features from an input recording and apply the trained classifier to predict a dialect.</dd></div>
+      </dl>
+      <p><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/screenshots/p05-architecture.png">Original classification diagram (thesis p. 5)</a> · <a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/dataset/recording-counts.csv">Recording counts</a></p>
+    </section>
+    <section id="results" aria-labelledby="results-title">
+      <h2 id="results-title">Historical results</h2>
+      <p>Naive Bayes and SVM each reached <strong>95% reported accuracy</strong> with DB4 and discretization in Table 7.</p>
+      <p class="note">The study accepted 80 of 125 recordings. The accepted corpus was small, imbalanced, male-only, and based on a single phrase. The available artifacts do not establish whether attribute selection and discretization were fitted within each validation fold. The original audio and trained models are unavailable, and the historical results have not been independently reproduced.</p>
+      <p><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/results/reported-results.csv">Original results CSV</a> · <a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/RECOVERY.md">Source notes and the Table 4 correction</a></p>
+      <div class="filters" id="filters" hidden>
+        <label>Feature family <select id="family"><option value="">All families</option><option>MFCC</option><option>Haar</option><option>DB4</option></select></label>
+        <label>Order <select id="order"><option value="source">Thesis table order</option><option value="accuracy">Accuracy, highest first</option><option value="auc">ROC AUC, highest first</option></select></label>
+        <p id="result-count" role="status"></p>
+      </div>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Historical results table">
+        <table>
+          <caption>Reported accuracy and ROC AUC from thesis Tables 1–7</caption>
+          <thead><tr><th scope="col">Table</th><th scope="col">Configuration</th><th scope="col">Classifier</th><th scope="col">Accuracy</th><th scope="col">ROC AUC</th></tr></thead>
+          <tbody id="result-rows">
+          <tr><td>1</td><th scope="row">MFCC balanced</th><td>Bayes Net</td><td>63.3333%</td><td>0.852</td></tr>
+          <tr><td>1</td><th scope="row">MFCC balanced</th><td>Naive Bayes</td><td>61.7%</td><td>0.802</td></tr>
+          <tr><td>1</td><th scope="row">MFCC balanced</th><td>SVM</td><td>61.7%</td><td>0.806</td></tr>
+          <tr><td>1</td><th scope="row">MFCC balanced</th><td>IBk k=1</td><td>46.7%</td><td>0.667</td></tr>
+          <tr><td>1</td><th scope="row">MFCC balanced</th><td>IBk k=5</td><td>36.7%</td><td>0.751</td></tr>
+          <tr><td>2</td><th scope="row">MFCC full</th><td>Bayes Net</td><td>61.25%</td><td>0.825</td></tr>
+          <tr><td>2</td><th scope="row">MFCC full</th><td>Naive Bayes</td><td>70%</td><td>0.857</td></tr>
+          <tr><td>2</td><th scope="row">MFCC full</th><td>SVM</td><td>66.25%</td><td>0.85</td></tr>
+          <tr><td>3</td><th scope="row">MFCC AdaBoostM1</th><td>Bayes Net</td><td>57.5%</td><td>0.811</td></tr>
+          <tr><td>3</td><th scope="row">MFCC AdaBoostM1</th><td>Naive Bayes</td><td>70%</td><td>0.857</td></tr>
+          <tr><td>3</td><th scope="row">MFCC AdaBoostM1</th><td>SVM</td><td>66.25%</td><td>0.85</td></tr>
+          <tr><td>3</td><th scope="row">MFCC Bagging</th><td>Bayes Net</td><td>66.25%</td><td>0.888</td></tr>
+          <tr><td>3</td><th scope="row">MFCC Bagging</th><td>Naive Bayes</td><td>56.25%</td><td>0.833</td></tr>
+          <tr><td>3</td><th scope="row">MFCC Bagging</th><td>SVM</td><td>68.75%</td><td>0.882</td></tr>
+          <tr><td>4</td><th scope="row">Haar attribute selection</th><td>Bayes Net</td><td>72.5%</td><td>0.909</td></tr>
+          <tr><td>4</td><th scope="row">Haar attribute selection</th><td>Naive Bayes</td><td>56.25%</td><td>0.776</td></tr>
+          <tr><td>4</td><th scope="row">Haar attribute selection</th><td>SVM</td><td>41.25%</td><td>0.688</td></tr>
+          <tr><td>5</td><th scope="row">DB4 attribute selection</th><td>Bayes Net</td><td>83.75%</td><td>0.971</td></tr>
+          <tr><td>5</td><th scope="row">DB4 attribute selection</th><td>Naive Bayes</td><td>58.75%</td><td>0.819</td></tr>
+          <tr><td>5</td><th scope="row">DB4 attribute selection</th><td>SVM</td><td>46.25%</td><td>0.7</td></tr>
+          <tr><td>6</td><th scope="row">DB4 AdaBoostM1</th><td>Bayes Net</td><td>86.25%</td><td>0.983</td></tr>
+          <tr><td>6</td><th scope="row">DB4 AdaBoostM1</th><td>Naive Bayes</td><td>53.75%</td><td>0.766</td></tr>
+          <tr><td>6</td><th scope="row">DB4 AdaBoostM1</th><td>SVM</td><td>45%</td><td>0.675</td></tr>
+          <tr><td>6</td><th scope="row">DB4 Bagging</th><td>Bayes Net</td><td>90%</td><td>0.989</td></tr>
+          <tr><td>6</td><th scope="row">DB4 Bagging</th><td>Naive Bayes</td><td>61.25%</td><td>0.848</td></tr>
+          <tr><td>6</td><th scope="row">DB4 Bagging</th><td>SVM</td><td>51.25%</td><td>0.808</td></tr>
+          <tr><td>7</td><th scope="row">DB4 discretization</th><td>Naive Bayes</td><td>95%</td><td>0.996</td></tr>
+          <tr><td>7</td><th scope="row">DB4 discretization</th><td>SVM</td><td>95%</td><td>0.979</td></tr>
+          <tr><td>7</td><th scope="row">DB4 discretization</th><td>IBk k=1</td><td>77.5%</td><td>0.911</td></tr>
+          <tr><td>7</td><th scope="row">DB4 discretization</th><td>IBk k=5</td><td>65%</td><td>0.959</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section id="screens" aria-labelledby="screens-title">
+      <h2 id="screens-title">Original desktop application</h2>
+      <p>Thesis page renders document the C#/WPF interface, including audio playback and dialect identification.</p>
+      <div class="gallery">
+        <figure><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/screenshots/p76-main-window.png"><img src="assets/p76-main-window.png" width="918" height="1188" loading="lazy" alt="The main WPF window and navigation frame"></a><figcaption>Main window · p. 76</figcaption></figure>
+        <figure><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/screenshots/p82-processing-page.png"><img src="assets/p82-processing-page.png" width="918" height="1188" loading="lazy" alt="The audio player with playback controls and classification progress"></a><figcaption>Playback and processing · p. 82</figcaption></figure>
+        <figure><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/screenshots/p88-identification-result.png"><img src="assets/p88-identification-result.png" width="918" height="1188" loading="lazy" alt="The result screen showing Target Found (Aden)"></a><figcaption>Identification result · p. 88</figcaption></figure>
+      </div>
+      <p><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/tree/main/original-2016/screenshots">Browse all archived screenshots</a></p>
+    </section>
+    <section id="archive" aria-labelledby="archive-title">
+      <h2 id="archive-title">Archive and citation</h2>
+      <p>Ali A. Baowain, Mohammed N. Mubark, Mohammed N. Obaid, Ahmed A. Sallam, Ahmed R. Abdo, and Haytham Y. Al-Areaqi. Supervisor Dr. Ibrahim Nani. Names follow the original title page.</p>
+      <p>Department of Computer Science and Engineering, Faculty of Engineering, University of Aden.</p>
+      <ul>
+        <li><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/docs/Full-Thesis-2016.pdf">Complete thesis with corrected indexes (113-page PDF)</a></li>
+        <li><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/README.md">Original archive and partial source transcriptions</a></li>
+        <li><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/AUTHORS.md">Author record</a> and <a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/original-2016/CITATION.cff">citation metadata</a></li>
+        <li><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/reconstructed/README.md">Later reconstruction</a> and <a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016/blob/main/reconstructed/VALIDATION.md">validation status</a></li>
+      </ul>
+    </section>
+  </main>
+  <footer><div class="wrap"><a href="https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016">GitHub repository</a></div></footer>
+</body>
+</html>
