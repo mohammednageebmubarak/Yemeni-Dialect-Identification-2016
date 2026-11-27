@@ -1,0 +1,1134 @@
+--- Thesis page 70 ---
+     WPF Files
+
+            These files are App.config (contains application configurations such as Target .Net
+
+        framework). App.xml (contains application Style in which it contains all application
+
+        elements Style that will applied directly at run time).
+
+8.4.2 Project Functionality and Coding
+
+    We Splits our application into two fundamental processes that is represented by two classes
+
+which are Recorder.cs and Identifier.cs all of which contains a number of methods that serve a
+
+different purpose in application. Now let us starting with Recorder Class, it has two important
+
+functionalities are:
+
+
+
+     Preforms Recording and saving recorded voice in .wav format
+
+     Get Information about available Recording Devices in client Computer
+
+
+
+Recorder.cs Code
+
+using NAudio.Wave;
+using System.IO;
+
+namespace Dilacts_Identification.Recording
+{
+    class Recorder
+    {
+        WaveIn waveInStream; //Recorder
+        WaveFileWriter writer;// Save The recorded Data
+        private List<string> info; //obtain Avaliable Recorder Device
+        //Performe Recording process
+        public void Start_Recording(string filename)
+        {
+            waveInStream = new WaveIn();
+            waveInStream.WaveFormat = new WaveFormat(16000,16,1);//Recording in custome
+Formate in wiche (16000=SampleRate,16=bitsPerSample,1=Channel)
+
+            writer = new WaveFileWriter(filename,waveInStream.WaveFormat);//intilizing The
+writter with our custom format
+
+waveInStream.DataAvailable                             +=                                  new
+EventHandler<WaveInEventArgs>(waveInStream_DataAvailable);//call Recording Event
+
+                                                 70
+
+
+--- Thesis page 71 ---
+            waveInStream.StartRecording();
+        }
+        void waveInStream_DataAvailable(object sender, WaveInEventArgs e)
+        {
+            writer.Write(e.Buffer, 0, e.BytesRecorded);//The writter will save(write) the
+recorded Bytes and buffer content While Data is avaliable
+        }
+        //Stop Recording and Realase The Recorder and writter resources
+        public void Stop_Recording()
+        {
+            waveInStream.StopRecording();
+            waveInStream.Dispose();
+            waveInStream = null;
+            writer.Close();
+            writer = null;
+        }
+        //get avaliable Devices for recording
+        public List<string> Device_info()
+        {
+            int waveInDevices = WaveIn.DeviceCount;
+            for (int waveInDevice = 0; waveInDevice < waveInDevices; waveInDevice++)
+            {
+                WaveInCapabilities deviceInfo = WaveIn.GetCapabilities(waveInDevice);
+                info=                           new                           List<string>
+{waveInDevice.ToString(),deviceInfo.ProductName,deviceInfo.Channels.ToString()};
+            }
+            return info;    }
+The second class is Identifier Class which has one functionality is:
+
+    It contains methods that implements Feature Extraction and classification process.
+
+
+
+Identifier.cs Code
+
+
+
+using MathWorks.MATLAB.NET.Arrays;
+using MathWorks.MATLAB.NET.Utility;
+using FeatureExtraction;
+using weka.classifiers;
+using weka.core;
+using weka.filters;
+using java.io;
+
+namespace Dilacts_Identification.Recording
+{
+    class Identifier
+    {
+
+        /*.............. Classification With Discrtiaze ........... */
+
+        //load the Train and Test Datasets
+        private Instances load(String filename)
+        {
+            Instances inputData;
+
+                                                71
+
+
+--- Thesis page 72 ---
+            weka.core.converters.ArffLoader            reader            =             new
+weka.core.converters.ArffLoader();
+            reader.setFile(new File(filename));
+            inputData = reader.getDataSet();
+            inputData.setClassIndex(inputData.numAttributes() - 1);
+            return inputData;
+        }
+        private void save(Instances data, String filename)
+        {
+            weka.core.converters.ArffSaver writer;
+            writer = new weka.core.converters.ArffSaver();
+            writer.setInstances(data);
+            writer.setFile(new File(filename));
+            writer.writeBatch();
+        }
+        //performe Discritize Filter on both Train and Test DataSets
+        private Instances Discretize(string type)
+        {
+            Instances inputTrain;
+            Instances inputTest;
+            Instances outputTrain;
+            Instances outputTest;
+            weka.filters.unsupervised.attribute.Discretize filter;
+            // load data
+            inputTrain                                                                   =
+load(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments)      +
+@"\Train-MelFCC.arff");
+            inputTest                                                                    =
+load(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments)+@"\Te
+st-MelFCC.arff");
+
+            // setup filter
+            filter = new weka.filters.unsupervised.attribute.Discretize();
+            filter.setInputFormat(inputTrain);
+
+            // apply filter
+            outputTrain = weka.filters.Filter.useFilter(inputTrain, filter);
+            outputTest = weka.filters.Filter.useFilter(inputTest, filter);
+
+            if (type == "Train")
+            {
+                 return outputTrain;
+            }
+            else
+            {
+                 return outputTest;
+            }
+
+        }
+        // Obtain Dialect from a given classlable
+       private string GetDialect(string classlable)
+        {
+            if (classlable == "A")
+            {
+                Dialect = "Aden";
+            }
+            else if (classlable == "S")
+            {
+
+                                           72
+
+
+--- Thesis page 73 ---
+                 Dialect = "Sana'a";
+            }
+            else if (classlable == "D")
+            {
+                 Dialect = "Dalea";
+            }
+            else if (classlable == "L")
+            {
+                 Dialect = "Lahj";
+            }
+            else if (classlable == "H")
+            {
+                 Dialect = "Hadramout";
+            }
+            else
+            {
+                 Dialect = "Unkown";
+            }
+            return Dialect;
+        }
+        //Classification and Feature Extraction (Using Discrtize Filter)
+        public string IdentifierEngine(string arffpath,string wavepath)
+        {
+
+            //mathlab (Feature Extraction Using LPCC)
+            FExClass Ex = new FExClass();
+            Ex.Coefmfplp((MWCharArray)"MelFCC",                        (MWNumericArray)1000,
+(MWCharArray)arffpath,          (MWCharArray)wavepath,             (MWCharArray)"A,D,H,L,S",
+(MWCharArray)"Dilacts", (MWCharArray)"H");
+
+            // Weka (Classify Test data using NB)
+            weka.classifiers.bayes.NaiveBayes             NB             =                new
+weka.classifiers.bayes.NaiveBayes();
+            Instances Train = Discretize("Train");
+            Instances Test = Discretize("Test");
+            Train.setClassIndex(Train.numAttributes() - 1);
+            Test.setClassIndex(Test.numAttributes() - 1);
+            NB.buildClassifier(Train);
+            double ClassIndex = NB.classifyInstance(Test.instance(0));
+            string classlable = Test.classAttribute().value((int)ClassIndex);
+            //identifying The Target
+            return GetDialect(classlable);
+        }
+
+    }
+}
+
+
+
+8.4.3 Project Interfaces Design
+
+    Windows Presentation Foundation (WPF) supports browser-style navigation that can be used
+
+in two types of applications: standalone applications and XAML browser applications
+
+(XBAPs). To package content for navigation, WPF provides the Page class. You can navigate from
+
+                                             73
+
+
+--- Thesis page 74 ---
+one Page to another declaratively, by using a Hyperlink, or programmatically, by using the
+
+NavigationService. WPF uses the journal to remember pages that have been navigated from and
+
+to navigate back to them.
+
+    In WPF, you can navigate to several content types that include .NET Framework objects,
+
+custom objects, XAML files, and HTML files. However, the most common and convenient way
+
+to package content is by using Pages. Hence, we used this way in designing to enhance our
+
+application appearance and simplify development. In this section we will introduce the different
+
+windows in our DID application.
+
+
+
+
+  I.   SplashScreen.xaml window
+
+       It represents Splash Screen of our application
+
+
+
+
+SplashScreen.cs Code
+
+
+                                               74
+
+
+--- Thesis page 75 ---
+namespace Dilacts_Identification
+{
+    public partial class SplashScreen : Window
+    {
+        System.Windows.Forms.Timer PTimer;
+        int counter = 0;
+        public SplashScreen()
+        {
+            InitializeComponent();
+            Start_Timer();
+
+         }
+         private void Start_Timer()
+         {
+             PTimer = new System.Windows.Forms.Timer();
+             PTimer.Interval =100;
+             PTimer.Tick += Timer_Tick;
+             PTimer.Start();
+
+         }
+         private void Timer_Tick(object sender, EventArgs e)
+         {
+             try
+             {
+                 lblPercentage.Visibility = Visibility.Visible;
+                 ringprogress.Visibility = Visibility.Visible;
+                counter = counter + 2;
+                 lblPercentage.Content = counter ;
+                 this.Cursor = System.Windows.Input.Cursors.Wait;
+                 if (counter== 100)
+                 {
+                     System.Threading.Thread.Sleep(500);
+                     MainWindow pag = new MainWindow();
+                     pag.Show();
+                     PTimer.Stop();
+                     PTimer.Enabled = false;
+                     ringprogress.IsActive = false;
+                     this.Hide();
+                 }
+             }
+             catch (Exception ex)
+             {
+                MessageBoxpage MsgPage = new MessageBoxpage(ex.Message);
+                 MsgPage.ShowDialog();
+             }
+         }
+         private void Titlebar_MouseDown(object sender, MouseButtonEventArgs e)
+         {
+             this.DragMove();
+         }
+     }
+}}
+
+
+
+
+                                            75
+
+
+--- Thesis page 76 ---
+ II.   MainWindow.xaml
+
+           This is the basic window of our application, the most important control in this window
+
+       is the frame control that will achieves navigation processes among the different pages.
+
+
+
+
+MainWindow.cs Code
+
+
+
+using NAudio.Wave;
+using NAudio;
+namespace Dilacts_Identification
+{
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
+{
+public MainWindow()
+{
+InitializeComponent();
+}
+private void btnMaxMin_Click(object sender, RoutedEventArgs e)
+{
+
+                                                76
+
+
+--- Thesis page 77 ---
+if( this.WindowState != WindowState.Minimized)
+{
+SystemCommands.MinimizeWindow(MainWindow1);
+}
+}
+private void btnclose_Click(object sender, RoutedEventArgs e)
+{
+MainWindow1.Close();
+}
+private void Titlebar_MouseDown(object sender, MouseButtonEventArgs e)
+{
+if(e.ClickCount==1 && e.LeftButton== MouseButtonState.Pressed)
+{
+this.DragMove();
+}
+else { return; }
+}
+..._Identification\Dilacts_Identification\MainWindow.xaml.cs 2
+private void MainWindow1_Closing(object sender,
+System.ComponentModel.CancelEventArgs e)
+{
+try
+{
+Recording.Recorder rec = new Recording.Recorder();
+Application.Current.Shutdown();
+Application.Current.ShutdownMode =
+ShutdownMode.OnMainWindowClose;
+rec.Stop_Recording();
+}
+catch(Exception ex)
+{
+MessageBoxpage msgpag = new MessageBoxpage(ex.Message);
+msgpag.ShowDialog();
+}
+}
+private void AboutItem_click(object sender,RoutedEventArgs e)
+{
+Aboutpage win = new Aboutpage();
+win.ShowDialog();
+}
+private void EventsItem_click(object sender, RoutedEventArgs e)
+{
+EventsPage pag = new EventsPage();
+Dashboard.Navigate(pag);
+}
+private void btnDropDown_Click(object sender, RoutedEventArgs e)
+{
+try
+{
+if (!(sender as Button).ContextMenu.IsOpen)
+{
+(sender as Button).ContextMenu.IsEnabled = true;
+(sender as Button).ContextMenu.PlacementTarget = (sender as
+Button);
+(sender as Button).ContextMenu.Placement =
+System.Windows.Controls.Primitives.PlacementMode.Bottom;
+
+                                               77
+
+
+--- Thesis page 78 ---
+(sender as Button).ContextMenu.IsOpen = true;
+}
+else
+{
+(sender as Button).ContextMenu.IsOpen = false;
+}
+}
+catch (Exception ex)
+{
+MessageBoxpage msgpag = new MessageBoxpage(ex.Message);
+msgpag.ShowDialog();
+}
+
+
+
+
+III.   Home.xaml page
+
+          This page contains the components needed for recording and saving recorded voice in
+
+       .wav format that will be stored temporarily in client Music file
+
+
+
+
+                                               78
+
+
+--- Thesis page 79 ---
+Home.cs Code
+
+
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using NAudio.Wave;
+namespace Dilacts_Identification.pages
+{
+/// <summary>
+/// Interaction logic for Home.xaml
+/// </summary>
+public partial class Home : Page
+{
+Recording.Recorder Recorder = new Recording.Recorder();
+private TimeSpan SpanTime;
+System.Windows.Threading.DispatcherTimer timer = new
+System.Windows.Threading.DispatcherTimer();
+private string wavepath { get; set; }
+MessageBoxpage msgpage;
+public Home()
+
+                                               79
+
+
+--- Thesis page 80 ---
+{
+InitializeComponent();
+GetUserInfo();
+}
+private void Start_Timer()
+{
+try
+{
+timer.Interval = new TimeSpan(0, 0, 0, 1);
+timer.Tick += timer_Tick;
+timer.Start();
+Recorder.Start_Recording(wavepath);
+}
+catch(Exception ex)
+{
+msgpage = new MessageBoxpage(ex.Message);
+msgpage.ShowDialog();
+}
+}
+public void Stop_Timer()
+{
+try
+{
+Recorder.Stop_Recording();
+timer.Stop();
+timer = null;
+}
+catch (Exception ex)
+{
+msgpage = new MessageBoxpage(ex.Message);
+msgpage.ShowDialog();
+}
+}
+void timer_Tick(object sender, EventArgs e)
+{
+try
+{
+SpanTime = SpanTime.Add(timer.Interval);
+lblTimer.Content = SpanTime;
+if (lblTimer.Content.ToString() == ("00:00:02").ToString())
+{
+Stop_Timer();
+System.Threading.Thread.Sleep(1000);
+lblTimer.Content = ("00:00:00").ToString();
+Processing pro = new Processing(wavepath);
+this.NavigationService.Navigate(pro);
+}
+}
+catch(Exception ex)
+{
+msgpage = new MessageBoxpage(ex.Message);
+msgpage.ShowDialog();
+}
+}
+private void GetUserInfo()
+{
+
+                                                     80
+
+
+--- Thesis page 81 ---
+try
+{
+txtInfo.Text = "Welcome " + Environment.UserName +Environment.NewLine + "please Start Recording
+Your Voice";
+List<string> Info = Recorder.Device_info();
+lblInfo.Content = "Avaliable Recorder Device : " + Info [1].ToString() + " Channel " + Info[2].ToString() + ")";
+wavepath       =    Environment.GetFolderPath        (Environment.SpecialFolder.MyMusic).ToString()           +
+@"\temp.wav";
+}
+catch (Exception ex)
+{
+msgpage = new MessageBoxpage(ex.Message);
+msgpage.ShowDialog();
+}
+}
+private void btnstart_Click(object sender, RoutedEventArgs e)
+
+
+{
+Start_Timer();
+}
+
+
+
+
+IV.     Processing.xaml page
+
+        This page is divided into two sections with different functionalities are:
+                                                      81
+
+
+--- Thesis page 82 ---
+          i.      Audio player components to play, paus, and controls volume level of the .Wav
+
+                  file begin played.
+
+          ii. Processing
+
+               Feature Extraction and Classification process of the Recorded Wav file.
+
+               Creating Folder with Name (Identified Dialects) in client Documents file.
+
+               Moving the identified wav file to this folder.
+
+               Storing the Resulted Dialect information in EventsData.xml file (XML).
+
+
+
+
+Processing.cs Code
+using NAudio.Wave;
+using NAudio;
+using System.IO;
+using System.Data;
+using System.Xml;
+namespace Dilacts_Identification
+{
+
+    public partial class Processing : Page
+    {
+
+
+                                                82
+
+
+--- Thesis page 83 ---
+        System.Windows.Forms.Timer PTimer;
+        Recording.Recorder Recorder = new Recording.Recorder();
+        Recording.Identifier Identifier = new Recording.Identifier();
+        System.Windows.Threading.DispatcherTimer           timer         =          new
+System.Windows.Threading.DispatcherTimer();
+        public MediaPlayer player = new MediaPlayer();
+        string Wavepath = null;
+        private string PredClass { get; set; }
+        private string folderpath { get; set; }
+        MessageBoxpage MsgPage;
+        private enum PlayerState { play,paus }
+        private enum VolumeState { Normal,Mute}
+        int Counter =0;
+        public Processing(string source)
+        {
+            InitializeComponent();
+            lblStatus.Content =PlayerState.play;
+            player.MediaEnded += media_ended;
+            Wavepath =source;
+            player_Timer();
+
+       }
+      void media_ended(object sender,EventArgs e)
+       {
+           try
+           {
+               player.Stop();
+               lblStatus.Content = PlayerState.play;
+               btnplaypuse.ToolTip = PlayerState.play;
+               btnStop.IsEnabled = false;
+               btnplaypuse.Background = SetBackgroundImg(@"images\icon_152.png");
+           }
+           catch(Exception ex)
+           {
+               MsgPage = new MessageBoxpage(ex.Message);
+               MsgPage.ShowDialog();
+           }
+       }
+       public void player_Timer()
+       {
+           try
+           {
+               timer.Interval = TimeSpan.FromMilliseconds(1);
+               timer.Tick += player_Tick;
+               player.Open(new Uri(Wavepath));
+               timer.Start();
+           }
+           catch(Exception ex)
+           {
+               MsgPage = new MessageBoxpage(ex.Message);
+               MsgPage.ShowDialog();
+           }
+       }
+       void player_Tick(object sender, EventArgs e)
+       {
+           try
+           {
+               if (player.Source != null)
+
+                                           83
+
+
+--- Thesis page 84 ---
+                {
+                    if (player.NaturalDuration.HasTimeSpan)
+                    {
+                        lblStart.Content                                                 =
+String.Format(player.Position.ToString(@"hh\:mm\:ss"));
+                        lblEnd.Content                                                   =
+String.Format(player.NaturalDuration.TimeSpan.ToString(@"hh\:mm\:ss"));
+                        playerSliderbar.Minimum = 0;
+                        playerSliderbar.Maximum                                          =
+player.NaturalDuration.TimeSpan.TotalSeconds;
+                        playerSliderbar.Value = player.Position.TotalMilliseconds / 1000;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch(Exception ex)
+            {
+                MsgPage = new MessageBoxpage(ex.Message);
+                MsgPage.ShowDialog();
+            }
+
+        }
+        private void processing_Timer()
+        {
+            PTimer = new System.Windows.Forms.Timer();
+            PTimer.Interval =100;
+            PTimer.Tick += processing_Tick;
+            PTimer.Start();
+
+        }
+        private void Stop_Timers()
+        {
+            try
+            {
+                timer.Stop();
+                timer = null;
+                player.Close();
+            }
+            catch(Exception ex)
+            {
+                MsgPage = new MessageBoxpage(ex.Message);
+                MsgPage.ShowDialog();
+            }
+
+        }
+      private void processing_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                ringprogress.Visibility = Visibility.Visible;
+                lblPercentage.Visibility = Visibility.Visible;
+                lblprocessing.Visibility = Visibility.Visible;
+                Counter = Counter + 1;
+                lblPercentage.Content = Counter + " % Complete";
+                btnback.IsEnabled = false;
+
+                                           84
+
+
+--- Thesis page 85 ---
+               btnplaypuse.IsEnabled = false;
+               player.Stop();
+               if (Counter == 20)
+               {
+                   lblprocessing.Content = "Extracting Features....";
+
+               }
+               else if (Counter == 40)
+               {
+                   lblprocessing.Content = "Generating ARFF File..";
+
+               }
+               else if (Counter == 60)
+               {
+                   lblprocessing.Content = "Loading Classification Model..";
+
+               }
+               else if (Counter == 80)
+               {
+                   lblprocessing.Content = "Classifying Your Voice..";
+               }
+               else if (Counter== 100)
+               {
+                    Stop_Timers();
+                    PTimer.Enabled = false;
+                    PredClass = GetPredicatedClass();
+                    IdentifyingResult res = new IdentifyingResult(PredClass);
+                    this.NavigationService.Navigate(res);
+                    btnprocessing.IsEnabled = true;
+                    btnprocessing.Content = "Processing"; ;
+                    btnback.IsEnabled = false;
+                    btnplaypuse.IsEnabled = false;
+                    ringprogress.IsActive = false;
+                    Store_File(PredClass);
+
+               }
+           }
+          catch(Exception ex)
+           {
+               MsgPage = new MessageBoxpage(ex.Message);
+               MsgPage.ShowDialog();
+           }
+        }
+        private void Store_File(string Dilect)
+        {
+folderpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)     +@"\Wave
+Files";
+            int fnum = Properties.Settings.Default.FileNumber;
+            Directory.CreateDirectory(folderpath);
+            File.Move(Wavepath, folderpath + @"\" +Dilect+"("+fnum+")"+".wav");
+            XmlDocument EventsData = new XmlDocument();
+            EventsData.Load(@"\Resources\EventsData.xml");
+            XmlElement Row = EventsData.CreateElement("Event");
+            XmlElement FileNum = EventsData.CreateElement("FileNum");
+            FileNum.InnerText = (fnum).ToString();
+            Properties.Settings.Default.FileNumber = fnum + 1;
+            Properties.Settings.Default.Save();
+            XmlElement Target = EventsData.CreateElement("Target");
+
+                                           85
+
+
+--- Thesis page 86 ---
+           Target.InnerText = Dilect;
+           XmlElement Date = EventsData.CreateElement("Date");
+           Date.InnerText = DateTime.Now.ToShortDateString();
+           XmlElement Time = EventsData.CreateElement("Time");
+           Time.InnerText = DateTime.Now.ToShortTimeString();
+           Row.AppendChild(FileNum);
+           Row.AppendChild(Target);
+           Row.AppendChild(Date);
+           Row.AppendChild(Time);
+           EventsData.DocumentElement.AppendChild(Row);
+           EventsData.Save(@"\Resources\EventsData.xml");
+
+        }
+        private string GetPredicatedClass()
+        {
+            try
+            {
+                string                             arffsave                             =
+Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+@"\Test";
+                return Identifier.IdentifierEngine(arffsave,Wavepath);
+            }
+           catch(Exception ex)
+            {
+                MsgPage = new MessageBoxpage(ex.Message);
+                MsgPage.ShowDialog();
+                return null;
+            }
+        }
+        private ImageBrush SetBackgroundImg(string path)
+        {
+            var img = new ImageBrush();
+            img.ImageSource = new BitmapImage(new Uri(path, UriKind.Relative));
+            return img;
+        }
+        private void btnplaypuse_Click(object sender, RoutedEventArgs e)
+        {
+            try {
+                string content = lblStatus.Content.ToString();
+
+               if (content == PlayerState.play.ToString()) //Plying state
+               {
+                   player.Play();
+                   btnplaypuse.Background = SetBackgroundImg(@"images\icon_154.png");
+                   lblStatus.Content = PlayerState.paus;//paus state
+                   btnplaypuse.ToolTip =PlayerState.play;
+                   btnStop.IsEnabled = true;
+               }
+               else
+               {
+                   player.Pause();
+                   lblStatus.Content =PlayerState.play;
+                   btnplaypuse.Background = SetBackgroundImg(@"images\icon_152.png");
+                   btnplaypuse.ToolTip =PlayerState.play;
+               }
+           }
+           catch (Exception ex)
+           {
+               MsgPage = new MessageBoxpage(ex.Message);
+
+                                           86
+
+
+--- Thesis page 87 ---
+         MsgPage.ShowDialog();
+    }
+}
+
+private void btnStop_Click(object sender, RoutedEventArgs e)
+{
+    player.Stop();
+    lblStatus.Content =PlayerState.play;
+    btnplaypuse.ToolTip = PlayerState.play;
+    btnplaypuse.Background = SetBackgroundImg(@"images\icon_152.png");
+    btnStop.IsEnabled = false;
+}
+
+private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double>e)
+{
+    player.Volume =(double)slider.Value/100;
+}
+
+private void btnvolume_Click(object sender, RoutedEventArgs e)
+{
+    string content = btnvolume.Content.ToString();
+    if (content==VolumeState.Normal.ToString()) // Normal State
+    {
+        btnvolume.Background = SetBackgroundImg(@"images\volume_4.png");
+        btnvolume.Content =VolumeState.Mute;
+
+        slider.Value = 0;
+    }
+    else// Mute State
+    {
+        btnvolume.Background = SetBackgroundImg(@"images\volume_1.png");
+        btnvolume.Content =VolumeState.Normal;
+        slider.Value =100;
+    }
+}
+
+private void btnprocessing_Click(object sender, RoutedEventArgs e)
+{
+    try
+    {
+        if (btnprocessing.IsEnabled == true)
+        {
+            btnprocessing.IsEnabled = false;
+            processing_Timer();//Start processing
+            btnprocessing.Content = "Waiting ...";
+        }
+        else { return; }
+    }
+    catch(Exception ex)
+    {
+        MsgPage = new MessageBoxpage(ex.Message);
+        MsgPage.Show();
+    }
+
+}
+
+private void btnback_Click(object sender, RoutedEventArgs e)
+{
+
+                                          87
+
+
+--- Thesis page 88 ---
+                  Stop_Timers();
+                  pages.Home pag = new pages.Home();
+                  this.NavigationService.GoBack();
+              }
+         }
+}
+
+
+
+
+    V.       IdentifyingResult.xaml page
+
+             Simply it shows the resulted dialect.
+
+
+
+
+IdentifyingResult.CS Code
+
+
+
+namespace Dilacts_Identification
+{
+public partial class IdentifyingResult : Page
+{
+
+                                                     88
+
+
+--- Thesis page 89 ---
+public IdentifyingResult(string Dialect)
+{
+InitializeComponent();
+lblResult.Content = "Target Found ("+Dialect+")";
+}
+private void btnback_Click(object sender, RoutedEventArgs e)
+{
+pages.Home page = new pages.Home();
+this.NavigationService.Navigate(page);
+}
+}
+}
+
+
+
+
+VI.    EventsPage.xaml page
+
+       Simply it displays the processing events log
+
+
+
+
+Eventspage.cs Code
+
+namespace Dilacts_Identification
+{
+/// <summary>
+
+                                                 89
+
+
+--- Thesis page 90 ---
+/// Interaction logic for EventsPage.xaml
+/// </summary>
+public partial class EventsPage : Page
+{
+DataSet ds = new DataSet();
+MessageBoxpage pag;
+public EventsPage()
+{
+InitializeComponent();
+GetData();
+}
+private void GetData()
+{
+try
+{
+ds.ReadXml(@”\Resources\EventsData.xml");
+if (ds.Tables[0].Rows.Count > 0)
+{
+dataGrid.ItemsSource = ds.Tables[0].DefaultView;
+}
+else
+{
+label.Content = "No Events To Display";
+}
+}
+catch(Exception ex)
+{
+pag = new MessageBoxpage(ex.Message);
+pag.ShowDialog();
+}
+}
+private void DeleteData()
+{
+try
+{
+string folderpath = Environment.GetFolderPath
+(Environment.SpecialFolder.MyDocuments) + @"\Wave Files";
+foreach (string fname in Directory.GetFiles(folderpath))
+{
+File.Delete(fname);
+}
+ds.Tables[0].Clear();
+ds.WriteXml(@"\Resources\EventsData.xml");
+}
+catch (Exception ex)
+{
+pag = new MessageBoxpage(ex.Message);
+pag.ShowDialog();
+}
+}
+private void btndelete_Click(object sender, RoutedEventArgs e)
+{
+DeleteData();
+}
+private void btnback_Click(object sender, RoutedEventArgs e)
+{
+
+                                                  90
+
+
+--- Thesis page 91 ---
+this.NavigationService.GoBack();
+}
+}
+}
+VII.    Messageboxpage.xaml window
+
+           This our custom message box that will be display the exceptions messages, it is design
+
+        differs completely from the defaulted or standard Messagebox dialog.
+
+
+
+
+VIII.   Aboutpage.xaml window
+
+        It display a specific information about our application
+
+
+
+
+                                                91
+
+
+--- Thesis page 92 ---
+IX.   EventsData.xml
+
+          Acts as Database file for our application that stores Identification Events (Identified
+
+      Dialect and the data, Time of Identification session).
+
+<?xml version="1.0" standalone="yes"?>
+<Events>
+  <Event>
+    <FileNum>48</FileNum>
+    <Target>Aden</Target>
+    <Date>2/21/2016</Date>
+    <Time>11:10 AM</Time>
+  </Event>
+  <Event>
+    <FileNum>49</FileNum>
+    <Target>Hadhramote</Target>
+    <Date>2/21/2016</Date>
+    <Time>12:48 PM</Time>
+  </Event>
+  <Event>
+    <FileNum>50</FileNum>
+    <Target>Hadhramote</Target>
+    <Date>2/21/2016</Date>
+    <Time>12:49 PM</Time>
+  </Event>
+  <Event>
+    <FileNum>51</FileNum>
+    <Target>Hadhramote</Target>
+    <Date>2/21/2016</Date>
+    <Time>12:49 PM</Time>
+  </Event>
+  <Event>
+    <FileNum>52</FileNum>
+    <Target>Hadhramote</Target>
+    <Date>2/21/2016</Date>
+    <Time>12:50 PM</Time>
+  </Event>
+
+
+                                               92
+
+
+--- Thesis page 93 ---
+</Events>
+
+
+
+
+            93

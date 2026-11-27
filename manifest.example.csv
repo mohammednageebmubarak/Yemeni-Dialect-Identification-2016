@@ -1,0 +1,6 @@
+path,dialect,speaker_id
+wav/aden_001.wav,A,spk001
+wav/dalea_001.wav,D,spk002
+wav/hadramout_001.wav,H,spk003
+wav/lahj_001.wav,L,spk004
+wav/sanaa_001.wav,S,spk005

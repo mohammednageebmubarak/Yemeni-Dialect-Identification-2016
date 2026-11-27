@@ -1,0 +1,3 @@
+# Original environment (documented, not a runnable installation)
+
+The thesis describes Windows, Visual Studio C#/WPF, MATLAB Library Compiler, MATLAB Compiler Runtime, MWArray.dll, NAudio, WEKA and IKVM.NET. Original instructions are in Chapter 8, pp. 60–69. The authors compiled MATLAB functions into FeatureExtraction.dll and FeatureExtractionNative.dll (class FExClass), and used `ikvmc.exe weka.jar` to generate a .NET-compatible WEKA assembly. Exact dependency versions are not verified. Missing source and training artifacts prevent a faithful build. The Identifier excerpt uses Train-MelFCC.arff and Test-MelFCC.arff and an unsupervised Discretize filter; this should not be represented as the verified DB4 experiment that reported 95% accuracy.

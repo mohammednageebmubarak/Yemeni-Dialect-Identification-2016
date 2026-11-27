@@ -1,0 +1,12 @@
+.vs/
+**/bin/
+**/obj/
+**/build/
+*.user
+*.suo
+*.wav
+*.arff
+*.model
+*.groups.csv
+EventsData.xml
+private/

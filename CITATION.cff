@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you cite this work, please cite the original 2016 graduation project."
+title: "Spoken Arabic Dialect Identification: The Case of Yemeni Dialects"
+type: generic
+authors:
+  - family-names: Baowain
+    given-names: Ali A.
+  - family-names: Mubark
+    given-names: Mohammed N.
+  - family-names: Obaid
+    given-names: Mohammed N.
+  - family-names: Sallam
+    given-names: Ahmed A.
+  - family-names: Abdo
+    given-names: Ahmed R.
+  - family-names: Al-Areaqi
+    given-names: Haytham Y.
