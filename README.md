@@ -9,6 +9,8 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24600512.svg)](https://doi.org/10.5281/zenodo.24600512) · [Zenodo research archive (v1.0.0)](https://doi.org/10.5281/zenodo.24600512)
 
+[![Thesis DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24600870.svg)](https://doi.org/10.5281/zenodo.24600870) · [Published bachelor's thesis (v1)](https://doi.org/10.5281/zenodo.24600870) · [All thesis versions](https://doi.org/10.5281/zenodo.24600869)
+
 ## Research overview
 
 This graduation project explored whether acoustic features and classical supervised classifiers could distinguish five Yemeni Arabic dialects: Adeni, Dalai, Hadhrami, Lahji, and Sanaani. The team compared pronunciations of the same greeting, <span lang="ar" dir="rtl">السلام عليكم</span>, using mel-frequency cepstral coefficients (MFCCs) and discrete wavelet transforms (Haar and Daubechies 4). The linked thesis PDF includes the corrected front-matter indexes.
