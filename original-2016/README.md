@@ -4,7 +4,9 @@
 
 Bachelor graduation project, Department of Computer Science and Engineering, Faculty of Engineering, University of Aden, February 2016. The project explored automatic classification of five spoken Yemeni Arabic dialects using acoustic feature extraction and classical supervised machine learning.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24600512.svg)](https://doi.org/10.5281/zenodo.24600512) · [Zenodo research archive (v1.0.0)](https://doi.org/10.5281/zenodo.24600512) — DOI for the repository archive, not a separate thesis DOI.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24600512.svg)](https://doi.org/10.5281/zenodo.24600512) · [Zenodo research archive (v1.0.0)](https://doi.org/10.5281/zenodo.24600512) — DOI for the repository archive.
+
+[![Thesis DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24600870.svg)](https://doi.org/10.5281/zenodo.24600870) · [Published bachelor's thesis (v1)](https://doi.org/10.5281/zenodo.24600870) · [All thesis versions](https://doi.org/10.5281/zenodo.24600869)
 
 ## Research overview
 
