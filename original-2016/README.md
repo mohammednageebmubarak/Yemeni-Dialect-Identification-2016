@@ -41,7 +41,7 @@ This is **not** a complete original source repository or executable release. The
 
 ## Authors
 
-Ali A. Baowain; Mohammed N. Mubark; Mohammed N. Obaid; Ahmed A. Sallam; Ahmed R. Abdo; Haytham Y. Al-Areaqi. Supervisor: Dr. Ibrahim Nani. Names are transcribed from the original title page.
+Ali A. Baowain; Mohammed N. Mubark ([@mohammednageebmubarak](https://github.com/mohammednageebmubarak)); Mohammed N. Obaid; Ahmed A. Sallam; Ahmed R. Abdo; Haytham Y. Al-Areaqi ([@alHaitham2020](https://github.com/alHaitham2020)). Supervisor: Dr. Ibrahim Nani. Names are transcribed from the original title page.
 
 ## Research rights and attribution
 
