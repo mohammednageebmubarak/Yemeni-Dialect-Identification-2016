@@ -1,6 +1,6 @@
 # Original authors (title page)
 
-- Ali A. Baowain
+- Ali A. Baowain ([@alibaowain](https://github.com/alibaowain))
 - Mohammed N. Mubark ([@mohammednageebmubarak](https://github.com/mohammednageebmubarak))
 - Mohammed N. Obaid
 - Ahmed A. Sallam
