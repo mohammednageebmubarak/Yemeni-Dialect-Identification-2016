@@ -5,7 +5,9 @@
 
 **University of Aden · Faculty of Engineering · Department of Computer Science and Engineering · February 2016**
 
-[Complete thesis · PDF, 113 pages](original-2016/docs/Full-Thesis-2016.pdf) · [العربية](README.ar.md) · [Research site source](docs/) · [Citation metadata](original-2016/CITATION.cff)
+[Complete thesis · PDF, 113 pages](original-2016/docs/Full-Thesis-2016.pdf) · [العربية](README.ar.md) · [Research site source](docs/) · [Archive citation metadata](CITATION.cff)
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24600512.svg)](https://doi.org/10.5281/zenodo.24600512) · [Zenodo research archive (v1.0.0)](https://doi.org/10.5281/zenodo.24600512)
 
 ## Research overview
 
