@@ -1,11 +1,11 @@
 # Original authors (title page)
 
 - Ali A. Baowain
-- Mohammed N. Mubark
+- Mohammed N. Mubark ([@mohammednageebmubarak](https://github.com/mohammednageebmubarak))
 - Mohammed N. Obaid
 - Ahmed A. Sallam
 - Ahmed R. Abdo
-- Haytham Y. Al-Areaqi
+- Haytham Y. Al-Areaqi ([@alHaitham2020](https://github.com/alHaitham2020))
 
 Supervisor: Dr. Ibrahim Nani. University of Aden, Faculty of Engineering, February 2016.
 
