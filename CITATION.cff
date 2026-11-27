@@ -28,3 +28,22 @@ keywords:
   - MFCC
   - discrete wavelet transform
   - research archive
+preferred-citation:
+  type: thesis
+  title: "Spoken Arabic Dialect Identification: The Case of Yemeni Dialects"
+  authors:
+    - family-names: Baowain
+      given-names: Ali A.
+    - family-names: Mubark
+      given-names: Mohammed N.
+    - family-names: Obaid
+      given-names: Mohammed N.
+    - family-names: Sallam
+      given-names: Ahmed A.
+    - family-names: Abdo
+      given-names: Ahmed R.
+    - family-names: Al-Areaqi
+      given-names: Haytham Y.
+  year: 2016
+  doi: "10.5281/zenodo.24600870"
+  url: "https://doi.org/10.5281/zenodo.24600870"
