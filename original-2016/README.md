@@ -45,4 +45,4 @@ Ali A. Baowain; Mohammed N. Mubark; Mohammed N. Obaid; Ahmed A. Sallam; Ahmed R.
 
 ## Citation and rights
 
-See [CITATION.cff](CITATION.cff). No open-source license is asserted. Public distribution of the original team work and any third-party content requires appropriate authorization. Do not upload private voice recordings without appropriate consent. This archive is prepared for the author's review; it has not been published to GitHub.
+See [CITATION.cff](CITATION.cff). No open-source license is asserted. Public distribution of the original team work and any third-party content requires appropriate authorization. Do not upload private voice recordings without appropriate consent. This archive preserves the historical project documentation; publication does not imply that the original source code or experimental results have been independently verified.
