@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "Please cite the original thesis and credit all six original researchers. The archive includes a later, separately identified software reconstruction."
+title: "Spoken Arabic Dialect Identification: The Case of Yemeni Dialects — Research Archive"
+type: generic
+authors:
+  - family-names: Baowain
+    given-names: Ali A.
+  - family-names: Mubark
+    given-names: Mohammed N.
+  - family-names: Obaid
+    given-names: Mohammed N.
+  - family-names: Sallam
+    given-names: Ahmed A.
+  - family-names: Abdo
+    given-names: Ahmed R.
+  - family-names: Al-Areaqi
+    given-names: Haytham Y.
+abstract: "Archival edition of the February 2016 undergraduate research project at the University of Aden on spoken Yemeni Arabic dialect identification using MFCC, discrete wavelet transforms, and classical supervised machine learning. The archive includes the original thesis with corrected indexes, recovered source excerpts, historical experimental results, and a separately labeled later software reconstruction. The original recordings and trained models are unavailable; the reported 95 percent accuracy has not been independently reproduced. The authors listed are the original research team; the later reconstruction is not attributed to them as original 2016 code. Academic supervisor: Dr. Ibrahim Nani."
+repository-code: "https://github.com/mohammednageebmubarak/Yemeni-Dialect-Identification-2016"
+keywords:
+  - Yemeni Arabic
+  - dialect identification
+  - speech processing
+  - machine learning
+  - MFCC
+  - discrete wavelet transform
+  - research archive
