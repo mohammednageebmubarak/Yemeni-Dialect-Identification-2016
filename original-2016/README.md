@@ -4,6 +4,8 @@
 
 Bachelor graduation project, Department of Computer Science and Engineering, Faculty of Engineering, University of Aden, February 2016. The project explored automatic classification of five spoken Yemeni Arabic dialects using acoustic feature extraction and classical supervised machine learning.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24600512.svg)](https://doi.org/10.5281/zenodo.24600512) · [Zenodo research archive (v1.0.0)](https://doi.org/10.5281/zenodo.24600512) — DOI for the repository archive, not a separate thesis DOI.
+
 ## Research overview
 
 The team collected 125 recordings, accepted 80 male-voice recordings, and used the common phrase “السلام عليكم” to compare pronunciations. The dialects were Adeni, Hadhrami, Lahji, Sanaani and Dalai. The original methodology compared MFCC and discrete wavelet transforms (Haar and DB4), Naive Bayes, Bayesian networks, SVM and k-nearest neighbours, with feature selection, discretization and ensemble methods. The desktop demonstration used C#/WPF, MATLAB compiled components, WEKA through IKVM.NET, and NAudio.
