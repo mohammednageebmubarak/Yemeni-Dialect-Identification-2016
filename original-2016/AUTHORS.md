@@ -4,7 +4,7 @@
 - Mohammed N. Mubark ([@mohammednageebmubarak](https://github.com/mohammednageebmubarak))
 - Mohammed N. Obaid
 - Ahmed A. Sallam
-- Ahmed R. Abdo
+- Ahmed R. Abdo ([@ahmedrashadabdo](https://github.com/ahmedrashadabdo))
 - Haytham Y. Al-Areaqi ([@alHaitham2020](https://github.com/alHaitham2020))
 
 Supervisor: Dr. Ibrahim Nani. University of Aden, Faculty of Engineering, February 2016.
