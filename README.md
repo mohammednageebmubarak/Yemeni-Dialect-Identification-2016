@@ -58,7 +58,7 @@ The images below are page renders from the 2016 thesis.
 
 ## Authors and citation
 
-Ali A. Baowain, Mohammed N. Mubark, Mohammed N. Obaid, Ahmed A. Sallam, Ahmed R. Abdo, Haytham Y. Al-Areaqi. **Supervisor:** Dr. Ibrahim Nani. Names follow the original title page.
+Ali A. Baowain, Mohammed N. Mubark ([@mohammednageebmubarak](https://github.com/mohammednageebmubarak)), Mohammed N. Obaid, Ahmed A. Sallam, Ahmed R. Abdo, Haytham Y. Al-Areaqi ([@alHaitham2020](https://github.com/alHaitham2020)). **Supervisor:** Dr. Ibrahim Nani. Names follow the original title page.
 
 [Author record](original-2016/AUTHORS.md) · [Citation metadata](original-2016/CITATION.cff)
 
