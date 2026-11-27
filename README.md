@@ -56,9 +56,46 @@ The images below are page renders from the 2016 thesis.
 
 [Browse all original figures and screenshots](original-2016/screenshots/)
 
-## Authors and citation
+## Original Research Team — 2016
 
-Ali A. Baowain, Mohammed N. Mubark ([@mohammednageebmubarak](https://github.com/mohammednageebmubarak)), Mohammed N. Obaid, Ahmed A. Sallam, Ahmed R. Abdo, Haytham Y. Al-Areaqi ([@alHaitham2020](https://github.com/alHaitham2020)). **Supervisor:** Dr. Ibrahim Nani. Names follow the original title page.
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <a href="https://github.com/alibaowain"><img src="https://github.com/alibaowain.png?size=160" width="100" height="100" alt="Ali A. Baowain — GitHub avatar"></a><br>
+      <strong>Ali A. Baowain</strong><br>
+      <a href="https://github.com/alibaowain">@alibaowain</a><br>
+      <sub>Original researcher</sub>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/mohammednageebmubarak"><img src="https://github.com/mohammednageebmubarak.png?size=160" width="100" height="100" alt="Mohammed N. Mubark — GitHub avatar"></a><br>
+      <strong>Mohammed N. Mubark</strong><br>
+      <a href="https://github.com/mohammednageebmubarak">@mohammednageebmubarak</a><br>
+      <sub>Original researcher</sub>
+    </td>
+    <td align="center" width="33%">
+      <strong>Mohammed N. Obaid</strong><br>
+      <sub>Original researcher</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <strong>Ahmed A. Sallam</strong><br>
+      <sub>Original researcher</sub>
+    </td>
+    <td align="center" width="33%">
+      <strong>Ahmed R. Abdo</strong><br>
+      <sub>Original researcher</sub>
+    </td>
+    <td align="center" width="33%">
+      <a href="https://github.com/alHaitham2020"><img src="https://github.com/alHaitham2020.png?size=160" width="100" height="100" alt="Haytham Y. Al-Areaqi — GitHub avatar"></a><br>
+      <strong>Haytham Y. Al-Areaqi</strong><br>
+      <a href="https://github.com/alHaitham2020">@alHaitham2020</a><br>
+      <sub>Original researcher</sub>
+    </td>
+  </tr>
+</table>
+
+**Academic supervisor:** Dr. Ibrahim Nani. All six researchers are listed in the original title-page order.
 
 [Author record](original-2016/AUTHORS.md) · [Citation metadata](original-2016/CITATION.cff)
 
