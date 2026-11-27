@@ -62,9 +62,13 @@ Ali A. Baowain, Mohammed N. Mubark, Mohammed N. Obaid, Ahmed A. Sallam, Ahmed R.
 
 [Author record](original-2016/AUTHORS.md) · [Citation metadata](original-2016/CITATION.cff)
 
+## Research rights and attribution
+
+The original 2016 research belongs to the six researchers credited on the thesis title page. If you build on its methods or findings, cite the thesis and credit the full research team. For substantial extensions, we welcome contacting the original researchers to discuss possible collaboration. Authorship of new work should reflect each contributor’s actual contribution.
+
+The repository specifies no open-source license. Obtain any permissions required when reproducing or redistributing material.
+
 ## Repository guide
 
 - [Original 2016 archive](original-2016/README.md) includes the thesis, partial source transcriptions, historical results, and recovery notes.
 - [Reconstructed application](reconstructed/README.md) contains later C#/WPF, MATLAB, and Java/WEKA code based on the thesis. See [validation status](reconstructed/VALIDATION.md) and [reconstruction assumptions](reconstructed/ASSUMPTIONS.md).
-
-The repository specifies no open-source license.

@@ -43,6 +43,8 @@ This is **not** a complete original source repository or executable release. The
 
 Ali A. Baowain; Mohammed N. Mubark; Mohammed N. Obaid; Ahmed A. Sallam; Ahmed R. Abdo; Haytham Y. Al-Areaqi. Supervisor: Dr. Ibrahim Nani. Names are transcribed from the original title page.
 
-## Citation and rights
+## Research rights and attribution
 
-See [CITATION.cff](CITATION.cff). No open-source license is asserted. Public distribution of the original team work and any third-party content requires appropriate authorization. Do not upload private voice recordings without appropriate consent. This archive preserves the historical project documentation; publication does not imply that the original source code or experimental results have been independently verified.
+The original 2016 research belongs to the six researchers credited on the thesis title page. If you build on its methods or findings, cite the thesis and credit the full research team. For substantial extensions, we welcome contacting the original researchers to discuss possible collaboration. Authorship of new work should reflect each contributor’s actual contribution.
+
+The repository specifies no open-source license. Obtain any permissions required when reproducing or redistributing material. [Citation metadata](CITATION.cff) · [Author record](AUTHORS.md)

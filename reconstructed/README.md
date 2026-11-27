@@ -34,3 +34,7 @@ Run from this directory. The Java holdout command trusts the supplied split; the
 ## Tests
 
 Run the MATLAB feature smoke tests with `matlab -batch "addpath('Tests'); test_features"`; run `Tests/Smoke-Weka.ps1` after setting up the JDK/WEKA. Both use synthetic non-speech data only to exercise functionality. Then test the desktop on Windows (record, stop, play, select compatible model, predict, consent to save, view history, close; verify invalid model and missing model errors). See `VALIDATION.md` for actual checks performed here. See `ASSUMPTIONS.md` for methodological and integration differences.
+
+## Attribution
+
+If you build on the original research through this reconstruction, cite the 2016 thesis and credit all six original researchers. [Citation metadata](../original-2016/CITATION.cff) · [Research rights and attribution](../original-2016/README.md#research-rights-and-attribution)
