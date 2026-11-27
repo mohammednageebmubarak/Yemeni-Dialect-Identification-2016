@@ -83,7 +83,9 @@ The images below are page renders from the 2016 thesis.
       <sub>Original researcher</sub>
     </td>
     <td align="center" width="33%">
+      <a href="https://github.com/ahmedrashadabdo"><img src="https://github.com/ahmedrashadabdo.png?size=160" width="100" height="100" alt="Ahmed R. Abdo — GitHub avatar"></a><br>
       <strong>Ahmed R. Abdo</strong><br>
+      <a href="https://github.com/ahmedrashadabdo">@ahmedrashadabdo</a><br>
       <sub>Original researcher</sub>
     </td>
     <td align="center" width="33%">
